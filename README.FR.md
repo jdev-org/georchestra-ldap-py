@@ -76,6 +76,17 @@ Toutes les variables sont surchargeables sans éditer `config.py` en exportant :
 `LDAP_SEARCH_BASE`, `LDAP_MAIL_ATTRIBUTE`, `LDAP_DEFAULT_ROLE_CN`, `LDAP_DEFAULT_ORG_CN`.
 `GeorchestraLdapClient` les lit via `LdapSettings.from_env()` et applique les valeurs au `config.py` legacy en mémoire.
 
+## Logging et debug
+
+Le client s’appuie sur le module standard `logging`. Rien n’est configuré par défaut ; active le logging selon tes besoins :
+
+```python
+import logging
+logging.basicConfig(level=logging.INFO)  # ou DEBUG
+```
+
+Chaque méthode log le nom de l’action en INFO et produit un traceback complet en cas d’exception. Les mots de passe ne sont pas loggés.
+
 # Synthèse des scripts LDAP
 
 | Script | Fonction |

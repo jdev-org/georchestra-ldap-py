@@ -76,6 +76,17 @@ All settings can be overridden without editing `config.py` by exporting the same
 `LDAP_SEARCH_BASE`, `LDAP_MAIL_ATTRIBUTE`, `LDAP_DEFAULT_ROLE_CN`, `LDAP_DEFAULT_ORG_CN`.
 `GeorchestraLdapClient` picks them up via `LdapSettings.from_env()` and applies them to the legacy scripts in-memory.
 
+## Logging & debugging
+
+The client uses the standard Python `logging` module. No logging is configured by default; enable it as needed:
+
+```python
+import logging
+logging.basicConfig(level=logging.INFO)  # or DEBUG
+```
+
+Each client method logs the action name at INFO and will log a full traceback on exceptions. Password values are not logged.
+
 # Summary of LDAP Scripts
 
 | Script | Function |

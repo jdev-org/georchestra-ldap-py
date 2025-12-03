@@ -8,7 +8,11 @@ Steps:
 4. Moderate the user (pending -> users).
 """
 
+import logging
+
 from georchestra_ldap import GeorchestraLdapClient
+
+logger = logging.getLogger(__name__)
 
 
 def user_exists(client: GeorchestraLdapClient, email: str) -> str | None:
@@ -24,21 +28,22 @@ def user_exists(client: GeorchestraLdapClient, email: str) -> str | None:
 
 
 def main() -> None:
+    logging.basicConfig(level=logging.INFO)
     client = GeorchestraLdapClient()  # settings read from env variables by default
     email = "alice@fake.fr"
 
-    print("1) Ensure role FOO exists")
+    logger.info("1) Ensure role FOO exists")
     client.create_role("FOO", "Example role for Alice")
 
-    print("2) Lookup user", email)
+    logger.info("2) Lookup user %s", email)
     dn = user_exists(client, email)
     if dn:
-        print(f"   User already exists: {dn}")
+        logger.info("   User already exists: %s", dn)
     else:
-        print("3) Create user in pendingusers")
+        logger.info("3) Create user in pendingusers")
         client.create_user("alice", email, "Alice", "Example", "ChangeMe123!")
 
-    print("4) Moderate user (pending -> users)")
+    logger.info("4) Moderate user (pending -> users)")
     client.moderate_user(email)
 
 

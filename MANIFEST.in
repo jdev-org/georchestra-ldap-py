@@ -1,0 +1,4 @@
+include README.md README.EN.md README.FR.md requirements.txt
+include config.py
+recursive-include ldap_actions *.py
+recursive-include georchestra_ldap *.py
