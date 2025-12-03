@@ -1,4 +1,5 @@
 import sys
+sys.path.append("..") 
 from ldap_connection import get_connection
 
 def update_lastname(user_dn, new_lastname):

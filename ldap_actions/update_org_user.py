@@ -1,6 +1,7 @@
 import sys
+sys.path.append("..") 
 from ldap_connection import get_connection
-import config
+from .. import config
 
 def update_user_org(user_dn, org_cn):
     conn = get_connection()

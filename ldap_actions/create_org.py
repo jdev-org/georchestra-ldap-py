@@ -1,6 +1,7 @@
 import sys
+sys.path.append("..") 
 from ldap_connection import get_connection
-import config
+from .. import config
 
 def create_org(org_cn, org_name=None):
     conn = get_connection()

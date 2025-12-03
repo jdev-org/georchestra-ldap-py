@@ -18,7 +18,7 @@
             "id": "email",
             "type": "promptString",
             "description": "Adresse email à rechercher",
-            "default": "gaetan.bruel@jdev.fr"
+            "default": "utest@utest.fr"
         }
     ]
 }

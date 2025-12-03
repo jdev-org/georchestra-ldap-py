@@ -2,6 +2,7 @@ LDAP_SERVER = "ldap://localhost"
 LDAP_PORT = 389
 LDAP_USE_SSL = False
 LDAP_USER_DN = "cn=admin,dc=georchestra,dc=org"
+LDAP_USERS_DN = "ou=users"
 LDAP_ORG_DN = "ou=orgs"
 LDAP_PASSWORD = "secret"
 LDAP_ROLE_DN = "ou=roles"

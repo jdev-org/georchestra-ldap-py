@@ -1,4 +1,9 @@
 from ldap3 import Server, Connection, ALL
+import sys, os
+
+# Ajoute le dossier parent (où se trouve config.py)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import config
 
 def get_connection():
