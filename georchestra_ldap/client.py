@@ -28,8 +28,20 @@ logger = logging.getLogger(__name__)
 
 class GeorchestraLdapClient:
     """
-    Thin wrapper around the historical scripts located in ``ldap_actions`` so they
-    can be consumed as a reusable API from Python code without touching them.
+    Thin wrapper around the historical scripts in ``ldap_actions`` with a simple,
+    importable API. Each method delegates to the matching legacy script while
+    reapplying :class:`LdapSettings` to the legacy ``config.py``.
+
+    Common usage
+    ------------
+    >>> from georchestra_ldap import GeorchestraLdapClient, LdapSettings
+    >>> client = GeorchestraLdapClient(LdapSettings.from_env())
+    >>> client.create_role("FOO")
+    >>> client.create_user("alice", "alice@example.org", "Alice", "Example", "pwd")
+    >>> client.moderate_user("alice@example.org")
+    >>> client.add_user_role("alice@example.org", "FOO")
+    >>> client.read_user_roles("alice@example.org")
+    >>> client.delete_user("alice@example.org")
     """
 
     def __init__(self, settings: LdapSettings | None = None):
@@ -41,7 +53,18 @@ class GeorchestraLdapClient:
         ensure_legacy_import_aliases()
 
     def _run(self, action_name: str, func, *args, **kwargs):
-        """Apply settings, log the action, call the legacy function."""
+        """
+        Apply settings, log the action, call the legacy function.
+
+        Parameters
+        ----------
+        action_name : str
+            Friendly action name used for logging.
+        func : callable
+            Legacy function to execute.
+        *args, **kwargs
+            Forwarded to the underlying function.
+        """
         self._apply_settings()
         logger.info("Running action: %s", action_name)
         try:
@@ -54,6 +77,11 @@ class GeorchestraLdapClient:
         """
         Update the underlying ``config.py`` values, optionally replacing the
         current :class:`LdapSettings` instance.
+
+        Parameters
+        ----------
+        settings : LdapSettings | None
+            New settings to apply; if None, reapply the existing instance.
         """
         if settings is not None:
             self.settings = settings
@@ -61,41 +89,100 @@ class GeorchestraLdapClient:
         return self
 
     def get_connection(self):
+        """
+        Return an auto-bound ldap3 Connection configured from current settings.
+        """
         return self._run("get_connection", ldap_connection.get_connection)
 
     def create_org(self, org_cn: str, org_name: str | None = None):
+        """
+        Create an organization if it does not exist.
+
+        Parameters
+        ----------
+        org_cn : str
+            Common name of the organization.
+        org_name : str | None
+            Optional display name (defaults to ``org_cn``).
+        """
         return self._run("create_org", create_org.create_org, org_cn, org_name)
 
     def create_user(self, uid: str, email: str, given_name: str, sn: str, password: str):
         # Do not log password, so only log action name above.
+        """
+        Create a pending user with geOrchestra objectClasses, USER role, C2C org.
+
+        Parameters
+        ----------
+        uid : str
+            LDAP uid.
+        email : str
+            User email.
+        given_name : str
+            Given name.
+        sn : str
+            Surname.
+        password : str
+            Plain password, hashed before being stored.
+        """
         return self._run("create_user", create_user.create_user, uid, email, given_name, sn, password)
 
     def moderate_user(self, email: str):
+        """
+        Move a user from pending to users if present in pending.
+        """
         return self._run("moderate_user", moderate_user.moderate_user, email)
 
     def add_user_role(self, email: str, role_cn: str):
+        """
+        Add an existing role to the user identified by email.
+        """
         return self._run("add_user_role", add_user_role.add_role, email, role_cn)
 
     def remove_user_role(self, email: str, role_cn: str):
+        """
+        Remove a role from the user identified by email.
+        """
         return self._run("remove_user_role", remove_user_role.remove_role, email, role_cn)
 
     def create_role(self, role_cn: str, description: str = "Role created via script", members: Iterable[str] | None = None):
+        """
+        Create a role if missing (idempotent); optionally seed members.
+        """
         return self._run("create_role", create_role.create_role, role_cn, description, members)
 
     def delete_role(self, role_cn: str):
+        """
+        Delete a role after removing its members.
+        """
         return self._run("delete_role", delete_role.delete_role, role_cn)
 
     def update_user_org(self, user_dn: str, org_cn: str):
+        """
+        Add a user DN to the given organization group.
+        """
         return self._run("update_user_org", update_org_user.update_user_org, user_dn, org_cn)
 
     def update_lastname(self, user_dn: str, new_lastname: str):
+        """
+        Replace the ``sn`` attribute of a user DN.
+        """
         return self._run("update_lastname", update_user_name.update_lastname, user_dn, new_lastname)
 
     def delete_user(self, email: str):
+        """
+        Remove a user from all roles/orgs then delete the entry.
+        """
         return self._run("delete_user", delete_user.delete_user, email)
 
     def read_user_infos(self, email: str):
+        """
+        Print full user info (DN, uid, cn, mail, memberOf).
+        """
         return self._run("read_user_infos", read_user_infos.read_user_infos, email)
 
     def read_user_roles(self, email: str):
+        """
+        Print roles (groups under roles DN) for a user email.
+        """
         return self._run("read_user_roles", read_user_roles.read_user_roles, email)
