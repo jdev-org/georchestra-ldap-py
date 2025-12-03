@@ -3,43 +3,42 @@
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from ldap3 import MODIFY_ADD
+from ldap3 import MODIFY_DELETE
 from ldap_connection import get_connection
 import config
 
 
-def add_role(user_dn: str, role_cn: str):
+def remove_role(user_dn: str, role_cn: str):
     conn = get_connection()
 
-    # DN du rôle
     role_dn = f"cn={role_cn},{config.LDAP_ROLE_DN},{config.LDAP_SEARCH_BASE}"
 
     # Vérifier que le rôle existe
     conn.search(
         search_base=f"{config.LDAP_ROLE_DN},{config.LDAP_SEARCH_BASE}",
         search_filter=f"(cn={role_cn})",
-        attributes=["cn"]
+        attributes=["member"]
     )
 
     if not conn.entries:
         print(f"Role not found: {role_cn}")
         return
 
-    print(f"Adding {user_dn} to role {role_dn}")
+    print(f"Removing {user_dn} from role {role_dn}")
 
     try:
         conn.modify(
             role_dn,
-            {"member": [(MODIFY_ADD, [user_dn])]}
+            {"member": [(MODIFY_DELETE, [user_dn])]}
         )
-        print("Role assignment successful.")
+        print("Role removal successful.")
     except Exception as e:
-        print("Error adding user to role:", e)
+        print("Error removing user from role:", e)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python add_user_role.py <user_dn> <role_cn>")
+        print("Usage: python remove_user_role.py <user_dn> <role_cn>")
         sys.exit(1)
 
-    add_role(sys.argv[1], sys.argv[2])
+    remove_role(sys.argv[1], sys.argv[2])
