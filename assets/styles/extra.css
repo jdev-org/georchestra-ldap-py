@@ -1,0 +1,4 @@
+/* Bold parameter names rendered by mkdocstrings (definition lists). */
+.doc-contents dl > dt {
+  font-weight: 700;
+}
