@@ -42,6 +42,27 @@ Rendre accessible et automatisable la gestion LDAP en fournissant des scripts au
 
 Chaque script peut être utilisé individuellement ou intégré dans des pipelines CI/CD ou des outils internes.
 
+# Utilisation comme bibliothèque Python
+
+Les scripts de `ldap_actions` restent inchangés mais peuvent désormais être consommés depuis n’importe quel code Python grâce à une fine couche d’API :
+
+```python
+from georchestra_ldap import GeorchestraLdapClient, LdapSettings
+
+settings = LdapSettings.from_env()  # ou LdapSettings(server="ldap://...", user_dn="...", password="...")
+client = GeorchestraLdapClient(settings)
+
+client.create_user("uid42", "uid42@example.org", "John", "Doe", "Secret123")
+client.moderate_user("uid42@example.org")
+client.add_user_role("uid42@example.org", "ADMIN")
+client.read_user_roles("uid42@example.org")
+```
+
+Principes :
+- `LdapSettings` lit la configuration existante (variables d’environnement identiques à `config.py`).
+- `GeorchestraLdapClient` applique ces paramètres au `config.py` legacy puis appelle directement les fonctions des scripts (`create_user`, `create_role`, `delete_user`, etc.).
+- Aucun changement n’est nécessaire dans `ldap_actions` : la CLI continue de fonctionner comme avant.
+
 # Synthèse des scripts LDAP
 
 | Script | Fonction |
@@ -77,4 +98,3 @@ Exécuter les commandes depuis la racine du dépôt (`python ldap_actions/<scrip
 | Ajouter un utilisateur à une organisation (DN requis) | `python ldap_actions/update_org_user.py "uid=utest2,ou=users,dc=georchestra,dc=org" MYORG` |
 | Mettre à jour le nom de famille (DN requis) | `python ldap_actions/update_user_name.py "uid=utest2,ou=users,dc=georchestra,dc=org" NouveauNom` |
 | Supprimer un utilisateur | `python ldap_actions/delete_user.py utest2@utest.fr` |
-

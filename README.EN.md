@@ -42,6 +42,27 @@ To make LDAP administration accessible and automatable by providing standalone, 
 
 Each script can be used individually or integrated into CI/CD pipelines or internal automation tools.
 
+# Using it as a Python library
+
+The `ldap_actions` scripts remain untouched, but you can now reuse them through a thin Python API:
+
+```python
+from georchestra_ldap import GeorchestraLdapClient, LdapSettings
+
+settings = LdapSettings.from_env()  # or LdapSettings(server="ldap://...", user_dn="...", password="...")
+client = GeorchestraLdapClient(settings)
+
+client.create_user("uid42", "uid42@example.org", "John", "Doe", "Secret123")
+client.moderate_user("uid42@example.org")
+client.add_user_role("uid42@example.org", "ADMIN")
+client.read_user_roles("uid42@example.org")
+```
+
+Notes:
+- `LdapSettings` reads the same environment variables as the legacy `config.py`.
+- `GeorchestraLdapClient` applies those settings to the legacy config and calls the existing scripts directly (`create_user`, `create_role`, `delete_user`, etc.).
+- The command-line usage remains unchanged; nothing is modified in `ldap_actions`.
+
 # Summary of LDAP Scripts
 
 | Script | Function |
