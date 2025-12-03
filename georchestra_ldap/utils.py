@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import importlib
-from typing import Any
 
 from georchestra_ldap.config import LdapSettings
-from georchestra_ldap.errors import LegacyConfigMissing, LegacyScriptsMissing
+from georchestra_ldap.errors import LegacyConfigMissing
 
 # Mapping between the new LdapSettings dataclass and the legacy config.py globals.
 _SETTINGS_MAP = {
@@ -22,27 +21,6 @@ _SETTINGS_MAP = {
     "LDAP_DEFAULT_ROLE_CN": "default_role_cn",
     "LDAP_DEFAULT_ORG_CN": "default_org_cn",
 }
-
-
-def ensure_legacy_scripts_available() -> None:
-    """Make sure the ldap_actions package can be imported."""
-    try:
-        importlib.import_module("ldap_actions")
-    except ModuleNotFoundError as exc:
-        if exc.name == "ldap_actions":
-            raise LegacyScriptsMissing(
-                "The ldap_actions package is required to reuse existing scripts."
-            ) from exc
-        raise
-
-
-def import_legacy_action(module_name: str) -> Any:
-    """
-    Import a module from ldap_actions (e.g. ``create_user``) with a clearer error
-    message if the package is missing.
-    """
-    ensure_legacy_scripts_available()
-    return importlib.import_module(f"ldap_actions.{module_name}")
 
 
 def apply_settings_to_legacy_config(settings: LdapSettings) -> None:
