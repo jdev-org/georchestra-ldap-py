@@ -1,4 +1,4 @@
-# Présentation du dépôt *ldap-py*
+# Présentation du dépôt *georchestra-ldap-py*
 
 Ce dépôt contient un ensemble de scripts Python permettant de gérer facilement les utilisateurs, rôles et organisations d’un annuaire LDAP compatible geOrchestra.  
 L’objectif est de fournir une boîte à outils simple, cohérente et automatisable pour administrer un LDAP sans passer par des interfaces lourdes ou des commandes manuelles.

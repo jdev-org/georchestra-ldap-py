@@ -1,4 +1,4 @@
-# Repository Overview *ldap-py*
+# Repository Overview *georchestra-ldap-py*
 
 This repository contains a collection of Python scripts designed to easily manage users, roles, and organizations in a geOrchestra-compatible LDAP directory.  
 The goal is to provide a simple, consistent, and automatable toolkit for administering LDAP without relying on heavy interfaces or manual commands.
