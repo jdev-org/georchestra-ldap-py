@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug LDAP Lookup",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "${input:email}"
+            ],
+            "preLaunchTask": "clean-log"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "email",
+            "type": "promptString",
+            "description": "Adresse email à rechercher",
+            "default": "gaetan.bruel@jdev.fr"
+        }
+    ]
+}

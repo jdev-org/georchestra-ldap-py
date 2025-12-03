@@ -1,0 +1,16 @@
+2025-12-03 10:51:34,695 - INFO - Recherche LDAP pour : gaetan.bruel@jdev.fr
+2025-12-03 10:51:34,769 - INFO - Filtre utilisateur : (mail=gaetan.bruel@jdev.fr)
+2025-12-03 10:51:34,776 - INFO - Utilisateur trouvé : uid=gbruel,ou=users,dc=georchestra,dc=org
+2025-12-03 10:51:34,776 - INFO - Organisation détectée via memberOf : testarea
+2025-12-03 10:51:34,784 - INFO - Objet organisation construit :
+2025-12-03 10:51:34,784 - INFO - mail: None
+2025-12-03 10:51:34,784 - INFO - orgUniqueId: None
+2025-12-03 10:51:34,784 - INFO - georchestraObjectIdentifier: None
+2025-12-03 10:51:34,784 - INFO - postalAddress: None
+2025-12-03 10:51:34,784 - INFO - o: testarea
+2025-12-03 10:51:34,785 - INFO - labeledURI: None
+2025-12-03 10:51:34,785 - INFO - cn: testarea
+2025-12-03 10:51:34,785 - INFO - businessCategory: None
+2025-12-03 10:51:34,785 - INFO - description: 59202
+2025-12-03 10:51:34,785 - INFO - knowledgeInformation: None
+2025-12-03 10:51:34,800 - INFO - Rôles détectés (20) : ['ADMINISTRATOR', 'SUPERUSER', 'EXTRACTORAPP', 'GN_ADMIN', 'GN_USERADMIN', 'GN_EDITOR', 'GN_REVIEWER', 'REFERENT', 'USER', 'MAPSTORE_ADMIN', 'CARTEAUX_EDIT', 'SV_CARTEAUX_EDIT', 'AVISEE_EDIT', 'AVISEE_READ', 'JDEV_ADMIN', 'EL_CMS_ADMIN', 'APPLIS_CNIL1', 'SV_PWRS_URBANISME_EVV', 'SV_PWRS_URBANISME_URB', 'EDP']
