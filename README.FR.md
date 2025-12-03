@@ -68,6 +68,14 @@ Principes :
 - `examples/example_alice_flow.py` : crée le rôle `FOO`, vérifie/ crée Alice en pending puis la modère.
 - `examples/example_roles_flow.py` : vérifie/ crée + modère Alice, lit ses rôles, assigne `FOO` et `BAZ`, retire `BAZ`.
 
+## Configuration (variables d’environnement)
+
+Toutes les variables sont surchargeables sans éditer `config.py` en exportant :
+`LDAP_SERVER`, `LDAP_PORT`, `LDAP_USE_SSL`, `LDAP_USER_DN`, `LDAP_PASSWORD`,
+`LDAP_USERS_DN`, `LDAP_PENDING_USERS_DN`, `LDAP_ORG_DN`, `LDAP_ROLE_DN`,
+`LDAP_SEARCH_BASE`, `LDAP_MAIL_ATTRIBUTE`, `LDAP_DEFAULT_ROLE_CN`, `LDAP_DEFAULT_ORG_CN`.
+`GeorchestraLdapClient` les lit via `LdapSettings.from_env()` et applique les valeurs au `config.py` legacy en mémoire.
+
 # Synthèse des scripts LDAP
 
 | Script | Fonction |
