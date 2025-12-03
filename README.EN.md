@@ -68,6 +68,16 @@ Notes:
 - `examples/example_alice_flow.py`: ensures role `FOO` exists, checks/creates Alice in pending, then moderates her.
 - `examples/example_roles_flow.py`: checks/creates + moderates Alice, reads her roles, adds `FOO` and `BAZ`, then removes `BAZ`.
 
+## Install the library in a virtualenv
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install .
+# or directly from git
+# pip install "git+https://<your-git-server>/georchestra-ldap-py.git"
+```
+
 ## Configuration (environment variables)
 
 All settings can be overridden without editing `config.py` by exporting the same variable names:
