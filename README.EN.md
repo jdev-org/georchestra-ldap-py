@@ -121,6 +121,8 @@ Each client method logs the action name at INFO and will log a full traceback on
 | **user_is_pending.py** | Returns True if the user email is in pending users. |
 | **org_exists.py** | Returns True if an organization exists under `ou=orgs`. |
 | **add_user_org.py** | Adds a user (by email) to an organization (removes them from other orgs first). |
+| **get_org_users.py** | Returns/prints the members (DNs) of an organization. |
+| **get_role_users.py** | Returns/prints the members (DNs) of a role. |
 
 # LDAP Command Summary Table
 

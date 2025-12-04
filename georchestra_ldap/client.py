@@ -16,8 +16,10 @@ from ldap_actions import (
     delete_role,
     delete_user,
     get_role_infos,
+    get_role_users,
     get_user_infos,
     get_user_roles,
+    get_org_users,
     ldap_connection,
     moderate_user,
     org_exists,
@@ -233,6 +235,15 @@ class GeorchestraLdapClient:
         """
         return self._run("role_exists", role_exist.role_exists, role_cn)
 
+    def get_role_users(self, role_cn: str):
+        """
+        Return and print the members (DNs) of a role.
+
+        Args:
+            role_cn (str): Common name of the role.
+        """
+        return self._run("get_role_users", get_role_users.get_role_users, role_cn)
+
     def org_exists(self, org_cn: str) -> bool:
         """
         Return True if an organization exists under the configured orgs DN.
@@ -241,6 +252,15 @@ class GeorchestraLdapClient:
             org_cn (str): Common name of the organization to check.
         """
         return self._run("org_exists", org_exists.org_exists, org_cn)
+
+    def get_org_users(self, org_cn: str):
+        """
+        Return and print the members (DNs) of an organization.
+
+        Args:
+            org_cn (str): Common name of the organization.
+        """
+        return self._run("get_org_users", get_org_users.get_org_users, org_cn)
 
     def user_is_pending(self, email: str) -> bool:
         """

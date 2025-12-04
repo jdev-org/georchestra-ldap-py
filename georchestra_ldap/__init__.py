@@ -17,9 +17,11 @@ __all__ = [
     "apply_settings_to_legacy_config",
     "role_exists",
     "org_exists",
+    "get_org_users",
     "get_user_infos",
     "get_role_infos",
     "get_user_roles",
+    "get_role_users",
     "user_is_pending",
     "add_user_org",
 ]

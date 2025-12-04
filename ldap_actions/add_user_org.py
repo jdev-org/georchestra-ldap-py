@@ -46,6 +46,11 @@ def add_user_to_org(email: str, org_cn: str):
 
     org_entry = conn.entries[0]
 
+    # If already in target org, do nothing.
+    if "member" in org_entry and user_dn in org_entry.member.values:
+        print(f"User already in organization: {org_cn}")
+        return
+
     # Remove user from any other orgs first
     conn.search(
         search_base=f"{config.LDAP_ORG_DN},{config.LDAP_SEARCH_BASE}",
@@ -59,10 +64,6 @@ def add_user_to_org(email: str, org_cn: str):
                 print(f"Removed {user_dn} from {existing_org.entry_dn}")
             except Exception as e:
                 print(f"Error removing user from {existing_org.entry_dn}: {e}")
-
-    if "member" in org_entry and user_dn in org_entry.member.values:
-        print(f"User already in organization: {org_cn}")
-        return
 
     print(f"Adding {user_dn} to {org_dn}")
     try:
