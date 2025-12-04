@@ -40,6 +40,13 @@ def add_role(email: str, role_cn: str):
         print(f"Role not found: {role_cn}")
         return
 
+    role_entry = conn.entries[0]
+
+    # 3bis) Vérifier si l'utilisateur est déjà membre
+    if "member" in role_entry and user_dn in role_entry.member.values:
+        print(f"User already has role: {role_cn}")
+        return
+
     print(f"Adding user to role: {role_dn}")
 
     # 4) Ajouter l'utilisateur au rôle
