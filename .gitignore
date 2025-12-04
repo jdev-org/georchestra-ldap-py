@@ -4,3 +4,4 @@ config*
 *cache*
 build/
 *.egg-info/
+site
