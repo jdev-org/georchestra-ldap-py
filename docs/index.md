@@ -36,3 +36,21 @@ client.moderate_user("alice@example.org")
 client.add_user_role("alice@example.org", "FOO")
 client.read_user_roles("alice@example.org")
 ```
+
+## Legacy scripts (CLI)
+
+| Script | Function |
+|--------|----------|
+| **read_user_infos.py** | Searches for a user by email and displays information: DN, uid, cn, mail, and all groups (`memberOf`). |
+| **read_user_roles.py** | Displays only the LDAP roles of a user (entries under `ou=roles`). |
+| **create_user.py** | Creates a user in `ou=pendingusers` using proper geOrchestra objectClasses, generates an SSHA password, and automatically assigns the `USER` role and the `C2C` organization. |
+| **moderate_user.py** | Activates a user by moving them from `ou=pendingusers` to `ou=users` without altering roles or organization. |
+| **add_user_role.py** | Adds a role (LDAP group) to a user by inserting their DN into the role’s `member` attribute. |
+| **remove_user_role.py** | Removes a user from an existing role. |
+| **create_role.py** | Creates a new LDAP role in `ou=roles` if it does not already exist. |
+| **delete_role.py** | Deletes a role after removing all its members. |
+| **create_org.py** | Creates a new LDAP organization in `ou=orgs` if it does not already exist. |
+| **update_org_user.py** | Adds a user (DN) to a given organization. |
+| **update_user_name.py** | Updates the `sn` (last name) of a user via their DN. |
+| **delete_user.py** | Deletes a user: removes them from all roles and organizations, then deletes the LDAP entry. |
+| **role_exist.py** | Checks whether a role exists under `ou=roles`. |
