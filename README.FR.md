@@ -121,6 +121,8 @@ Chaque méthode log le nom de l’action en INFO et produit un traceback complet
 | **user_is_pending.py** | Retourne True si l’utilisateur est en pending users. |
 | **org_exists.py** | Retourne True si une organisation existe sous `ou=orgs`. |
 | **add_user_org.py** | Ajoute un utilisateur (email) à une organisation en le retirant des autres orgs avant. |
+| **get_org_users.py** | Retourne/affiche les membres (DN) d’une organisation. |
+| **get_role_users.py** | Retourne/affiche les membres (DN) d’un rôle. |
 
 # Tableau récapitulatif des commandes LDAP
 
