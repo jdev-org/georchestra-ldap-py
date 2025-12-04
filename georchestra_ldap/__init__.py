@@ -18,6 +18,7 @@ __all__ = [
     "role_exists",
     "org_exists",
     "get_org_users",
+    "get_user_org",
     "get_user_infos",
     "get_role_infos",
     "get_user_roles",

@@ -15,11 +15,12 @@ from ldap_actions import (
     create_user,
     delete_role,
     delete_user,
+    get_org_users,
     get_role_infos,
     get_role_users,
     get_user_infos,
     get_user_roles,
-    get_org_users,
+    get_user_org,
     ldap_connection,
     moderate_user,
     org_exists,
@@ -225,6 +226,15 @@ class GeorchestraLdapClient:
             email (str): User email.
         """
         return self._run("get_user_roles", get_user_roles.get_user_roles, email)
+
+    def get_user_org(self, email: str):
+        """
+        Return and print the organization CN for a given user email.
+
+        Args:
+            email (str): User email.
+        """
+        return self._run("get_user_org", get_user_org.get_user_org, email)
 
     def role_exists(self, role_cn: str) -> bool:
         """

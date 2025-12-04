@@ -58,6 +58,7 @@ client.read_user_roles("alice@example.org")
 | **get_user_infos.py** | Returns/prints a user entry by email (DN, uid, cn, mail, memberOf). |
 | **get_role_infos.py** | Returns/prints a role entry by cn (DN, description, members). |
 | **get_user_roles.py** | Returns/prints the role CNs for a user. |
+| **get_user_org.py** | Returns/prints the organization CN for a user. |
 | **user_is_pending.py** | Returns True if the user email is in pending users. |
 | **org_exists.py** | Returns True if an organization exists under `ou=orgs`. |
 | **add_user_org.py** | Adds a user (by email) to an organization, removing them from other orgs first. |
