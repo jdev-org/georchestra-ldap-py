@@ -67,6 +67,7 @@ Notes:
 
 - `examples/example_alice_flow.py`: ensures role `FOO` exists, checks/creates Alice in pending, then moderates her.
 - `examples/example_roles_flow.py`: checks/creates + moderates Alice, reads her roles, adds `FOO` and `BAZ`, then removes `BAZ`.
+- `examples/custom_config.py`: shows how to provide custom `LdapSettings` and reuse the API.
 
 ## Install the library in a virtualenv
 

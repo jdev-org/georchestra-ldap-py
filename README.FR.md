@@ -67,6 +67,7 @@ Principes :
 
 - `examples/example_alice_flow.py` : crée le rôle `FOO`, vérifie/ crée Alice en pending puis la modère.
 - `examples/example_roles_flow.py` : vérifie/ crée + modère Alice, lit ses rôles, assigne `FOO` et `BAZ`, retire `BAZ`.
+- `examples/custom_config.py` : montre comment passer un `LdapSettings` personnalisé et réutiliser l’API.
 
 ## Installer la librairie dans un virtualenv
 

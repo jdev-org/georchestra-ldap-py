@@ -35,6 +35,7 @@ client.create_user("alice", "alice@example.org", "Alice", "Example", "Pwd123!")
 client.moderate_user("alice@example.org")
 client.add_user_role("alice@example.org", "FOO")
 client.read_user_roles("alice@example.org")
+# custom settings example: see examples/custom_config.py
 ```
 
 ## Legacy scripts (CLI)

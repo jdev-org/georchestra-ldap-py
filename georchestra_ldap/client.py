@@ -19,6 +19,7 @@ from ldap_actions import (
     read_user_infos,
     read_user_roles,
     remove_user_role,
+    role_exist,
     update_org_user,
     update_user_name,
 )
@@ -179,3 +180,12 @@ class GeorchestraLdapClient:
         Print roles (groups under roles DN) for a user email.
         """
         return self._run("read_user_roles", read_user_roles.read_user_roles, email)
+
+    def role_exists(self, role_cn: str) -> bool:
+        """
+        Return True if a role exists under the configured roles DN.
+
+        Args:
+            role_cn (str): Common name of the role to check.
+        """
+        return self._run("role_exists", role_exist.role_exists, role_cn)
