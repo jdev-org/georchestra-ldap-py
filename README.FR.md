@@ -117,6 +117,10 @@ Chaque méthode log le nom de l’action en INFO et produit un traceback complet
 | **role_exist.py** | Vérifie si un rôle existe sous `ou=roles`. |
 | **get_user_infos.py** | Retourne/affiche une entrée utilisateur par email (DN, uid, cn, mail, memberOf). |
 | **get_role_infos.py** | Retourne/affiche une entrée rôle par cn (DN, description, membres). |
+| **get_user_roles.py** | Retourne/affiche les rôles (CN) d’un utilisateur. |
+| **user_is_pending.py** | Retourne True si l’utilisateur est en pending users. |
+| **org_exists.py** | Retourne True si une organisation existe sous `ou=orgs`. |
+| **add_user_org.py** | Ajoute un utilisateur (email) à une organisation en le retirant des autres orgs avant. |
 
 # Tableau récapitulatif des commandes LDAP
 

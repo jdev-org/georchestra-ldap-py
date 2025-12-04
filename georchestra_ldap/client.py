@@ -9,21 +9,25 @@ from georchestra_ldap.utils import apply_settings_to_legacy_config, ensure_legac
 # Direct imports of the legacy scripts: simple and explicit.
 from ldap_actions import (
     add_user_role,
+    add_user_org,
     create_org,
     create_role,
     create_user,
     delete_role,
     delete_user,
+    get_role_infos,
+    get_user_infos,
+    get_user_roles,
     ldap_connection,
     moderate_user,
+    org_exists,
     read_user_infos,
     read_user_roles,
     remove_user_role,
-    get_user_infos,
-    get_role_infos,
     role_exist,
     update_org_user,
     update_user_name,
+    user_is_pending,
 )
 
 logger = logging.getLogger(__name__)
@@ -135,6 +139,16 @@ class GeorchestraLdapClient:
         """
         return self._run("add_user_role", add_user_role.add_role, email, role_cn)
 
+    def add_user_org(self, email: str, org_cn: str):
+        """
+        Add a user (by email) to an organization, removing them from other orgs first.
+
+        Args:
+            email (str): User email.
+            org_cn (str): Organization common name.
+        """
+        return self._run("add_user_org", add_user_org.add_user_to_org, email, org_cn)
+
     def remove_user_role(self, email: str, role_cn: str):
         """
         Remove a role from the user identified by email.
@@ -201,6 +215,15 @@ class GeorchestraLdapClient:
         """
         return self._run("get_role_infos", get_role_infos.get_role_infos, role_cn)
 
+    def get_user_roles(self, email: str):
+        """
+        Return and print the list of role CNs for a given user email.
+
+        Args:
+            email (str): User email.
+        """
+        return self._run("get_user_roles", get_user_roles.get_user_roles, email)
+
     def role_exists(self, role_cn: str) -> bool:
         """
         Return True if a role exists under the configured roles DN.
@@ -209,3 +232,21 @@ class GeorchestraLdapClient:
             role_cn (str): Common name of the role to check.
         """
         return self._run("role_exists", role_exist.role_exists, role_cn)
+
+    def org_exists(self, org_cn: str) -> bool:
+        """
+        Return True if an organization exists under the configured orgs DN.
+
+        Args:
+            org_cn (str): Common name of the organization to check.
+        """
+        return self._run("org_exists", org_exists.org_exists, org_cn)
+
+    def user_is_pending(self, email: str) -> bool:
+        """
+        Return True if the user (by email) is in pending users.
+
+        Args:
+            email (str): User email.
+        """
+        return self._run("user_is_pending", user_is_pending.user_is_pending, email)

@@ -16,6 +16,10 @@ __all__ = [
     "LegacyScriptsMissing",
     "apply_settings_to_legacy_config",
     "role_exists",
+    "org_exists",
     "get_user_infos",
     "get_role_infos",
+    "get_user_roles",
+    "user_is_pending",
+    "add_user_org",
 ]
