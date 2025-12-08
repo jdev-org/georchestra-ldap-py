@@ -377,6 +377,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.add_user_org" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_user_org
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#georchestra_ldap.client.GeorchestraLdapClient.add_user_role" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -454,10 +465,87 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.get_org_users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_org_users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.get_role_infos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_role_infos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.get_role_users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_role_users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.get_user_infos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_user_infos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.get_user_org" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_user_org
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.get_user_roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_user_roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#georchestra_ldap.client.GeorchestraLdapClient.moderate_user" class="md-nav__link">
     <span class="md-ellipsis">
       
         moderate_user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.org_exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        org_exists
       
     </span>
   </a>
@@ -509,6 +597,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.role_exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        role_exists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#georchestra_ldap.client.GeorchestraLdapClient.update_lastname" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -524,6 +623,17 @@
     <span class="md-ellipsis">
       
         update_user_org
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#georchestra_ldap.client.GeorchestraLdapClient.user_is_pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        user_is_pending
       
     </span>
   </a>
@@ -591,8 +701,6 @@ importable API. Each method delegates to the matching legacy script while
 reapplying :class:<code>LdapSettings</code> to the legacy <code>config.py</code>.</p>
 <h4 id="georchestra_ldap.client.GeorchestraLdapClient--common-usage-example">Common usage example :<a class="headerlink" href="#georchestra_ldap.client.GeorchestraLdapClient--common-usage-example" title="Permanent link">&para;</a></h4>
 <blockquote>
-<blockquote>
-<blockquote>
 <p>from georchestra_ldap import GeorchestraLdapClient, LdapSettings</p>
 <p>client = GeorchestraLdapClient(LdapSettings.from_env())</p>
 <p>client.create_role("FOO")</p>
@@ -601,8 +709,6 @@ reapplying :class:<code>LdapSettings</code> to the legacy <code>config.py</code>
 <p>client.add_user_role("alice@example.org", "FOO")</p>
 <p>client.read_user_roles("alice@example.org")</p>
 <p>client.delete_user("alice@example.org")</p>
-</blockquote>
-</blockquote>
 </blockquote>
 
 
@@ -713,6 +819,73 @@ reapplying :class:<code>LdapSettings</code> to the legacy <code>config.py</code>
             </td>
             <td>
                   <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.add_user_org" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">add_user_org</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.add_user_org" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">add_user_org</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">org_cn</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Add a user (by email) to an organization, removing them from other orgs first.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>email</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>User email.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>org_cn</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Organization common name.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
             </td>
           </tr>
       </tbody>
@@ -1008,6 +1181,312 @@ reapplying :class:<code>LdapSettings</code> to the legacy <code>config.py</code>
 <div class="doc doc-object doc-function">
 
 
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.get_org_users" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">get_org_users</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.get_org_users" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_org_users</span><span class="p">(</span><span class="n">org_cn</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return and print the members (DNs) of an organization.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>org_cn</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Common name of the organization.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.get_role_infos" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">get_role_infos</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.get_role_infos" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_role_infos</span><span class="p">(</span><span class="n">role_cn</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return and print role information (DN, cn, description, members).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>role_cn</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Common name of the role.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.get_role_users" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">get_role_users</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.get_role_users" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_role_users</span><span class="p">(</span><span class="n">role_cn</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return and print the members (DNs) of a role.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>role_cn</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Common name of the role.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.get_user_infos" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">get_user_infos</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.get_user_infos" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_user_infos</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return and print user information (DN, uid, cn, mail, memberOf).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>email</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>User email.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.get_user_org" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">get_user_org</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.get_user_org" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_user_org</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return and print the organization CN for a given user email.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>email</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>User email.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.get_user_roles" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">get_user_roles</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.get_user_roles" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_user_roles</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return and print the list of role CNs for a given user email.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>email</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>User email.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h3 id="georchestra_ldap.client.GeorchestraLdapClient.moderate_user" class="doc doc-heading">
             <span class="doc doc-object-name doc-function-name">moderate_user</span>
 
@@ -1019,6 +1498,57 @@ reapplying :class:<code>LdapSettings</code> to the legacy <code>config.py</code>
     <div class="doc doc-contents ">
 
         <p>Move a user from pending to users if present in pending.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.org_exists" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">org_exists</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.org_exists" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">org_exists</span><span class="p">(</span><span class="n">org_cn</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return True if an organization exists under the configured orgs DN.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>org_cn</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Common name of the organization to check.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     </div>
@@ -1140,6 +1670,57 @@ current :class:<code>LdapSettings</code> instance.</p>
 <div class="doc doc-object doc-function">
 
 
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.role_exists" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">role_exists</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.role_exists" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">role_exists</span><span class="p">(</span><span class="n">role_cn</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return True if a role exists under the configured roles DN.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>role_cn</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Common name of the role to check.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h3 id="georchestra_ldap.client.GeorchestraLdapClient.update_lastname" class="doc doc-heading">
             <span class="doc doc-object-name doc-function-name">update_lastname</span>
 
@@ -1171,6 +1752,57 @@ current :class:<code>LdapSettings</code> instance.</p>
     <div class="doc doc-contents ">
 
         <p>Add a user DN to the given organization group.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="georchestra_ldap.client.GeorchestraLdapClient.user_is_pending" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">user_is_pending</span>
+
+
+<a href="#georchestra_ldap.client.GeorchestraLdapClient.user_is_pending" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">user_is_pending</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return True if the user (by email) is in pending users.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>email</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>User email.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     </div>
