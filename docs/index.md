@@ -44,7 +44,7 @@ client.read_user_roles("alice@example.org")
 - Build locally: `pip install mkdocs mkdocs-material mkdocstrings[python] && mkdocs build`
 - Serve locally: `mkdocs serve` (opens on http://127.0.0.1:8000 by default)
 - Publish to GitHub Pages (requires push rights): `mkdocs gh-deploy --force`
-  - Or set up a GitHub Actions workflow (see `.github/workflows/docs.yml`) that builds the site and deploys to GitHub Pages. Configure Pages to use “GitHub Actions” as the source.
+  - Or use the provided GitHub Actions workflow (`.github/workflows/docs.yml`) which builds and pushes to the `gh-pages` branch. Configure Pages to serve from `gh-pages`.
 
 
 ## Legacy scripts (CLI)

@@ -75,7 +75,7 @@ Notes:
 - Build locally: `pip install mkdocs mkdocs-material mkdocstrings[python] && mkdocs build`
 - Serve locally: `mkdocs serve` (http://127.0.0.1:8000)
 - Publish to GitHub Pages (requires push rights): `mkdocs gh-deploy --force`
-  - Or set up the provided GitHub Actions workflow `.github/workflows/docs.yml` to build and deploy. Set Pages source to “GitHub Actions”.
+  - Ou via le workflow `.github/workflows/docs.yml` qui build et pousse sur la branche `gh-pages`. Configure Pages pour servir depuis `gh-pages`.
 
 ## Install the library in a virtualenv
 
