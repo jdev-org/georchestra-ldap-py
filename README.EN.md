@@ -55,6 +55,7 @@ client = GeorchestraLdapClient(settings)
 client.create_user("uid42", "uid42@example.org", "John", "Doe", "Secret123")
 client.moderate_user("uid42@example.org")
 client.add_user_role("uid42@example.org", "ADMIN")
+client.add_user_org("uid42@example.org", "C2C")  # removes from other orgs first
 client.read_user_roles("uid42@example.org")
 ```
 

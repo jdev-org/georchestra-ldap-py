@@ -34,6 +34,7 @@ client.create_role("FOO")
 client.create_user("alice", "alice@example.org", "Alice", "Example", "Pwd123!")
 client.moderate_user("alice@example.org")
 client.add_user_role("alice@example.org", "FOO")
+client.add_user_org("alice@example.org", "C2C")  # moves her out of other orgs first
 client.read_user_roles("alice@example.org")
 # custom settings example: see examples/custom_config.py
 ```

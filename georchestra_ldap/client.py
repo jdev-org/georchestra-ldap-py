@@ -44,21 +44,21 @@ class GeorchestraLdapClient:
 
     Common usage example :
     ----------------------
-    >>> from georchestra_ldap import GeorchestraLdapClient, LdapSettings
-    >>> 
-    >>> client = GeorchestraLdapClient(LdapSettings.from_env())
-    >>> 
-    >>> client.create_role("FOO")
-    >>> 
-    >>> client.create_user("alice", "alice@example.org", "Alice", "Example", "pwd")
-    >>> 
-    >>> client.moderate_user("alice@example.org")
-    >>> 
-    >>> client.add_user_role("alice@example.org", "FOO")
-    >>> 
-    >>> client.read_user_roles("alice@example.org")
-    >>> 
-    >>> client.delete_user("alice@example.org")
+    > from georchestra_ldap import GeorchestraLdapClient, LdapSettings
+    > 
+    > client = GeorchestraLdapClient(LdapSettings.from_env())
+    > 
+    > client.create_role("FOO")
+    > 
+    > client.create_user("alice", "alice@example.org", "Alice", "Example", "pwd")
+    > 
+    > client.moderate_user("alice@example.org")
+    > 
+    > client.add_user_role("alice@example.org", "FOO")
+    > 
+    > client.read_user_roles("alice@example.org")
+    > 
+    > client.delete_user("alice@example.org")
     """
 
     def __init__(self, settings: LdapSettings | None = None):
