@@ -295,6 +295,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#build-publish-the-docs-mkdocs-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build &amp; publish the docs (MkDocs Material)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#legacy-scripts-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -448,6 +459,13 @@ LDAP_DEFAULT_ROLE_CN, LDAP_DEFAULT_ORG_CN
 <span class="n">client</span><span class="o">.</span><span class="n">read_user_roles</span><span class="p">(</span><span class="s2">&quot;alice@example.org&quot;</span><span class="p">)</span>
 <span class="c1"># custom settings example: see examples/custom_config.py</span>
 </code></pre></div>
+<h2 id="build-publish-the-docs-mkdocs-material">Build &amp; publish the docs (MkDocs Material)<a class="headerlink" href="#build-publish-the-docs-mkdocs-material" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Build locally: <code>pip install mkdocs mkdocs-material mkdocstrings[python] &amp;&amp; mkdocs build</code></li>
+<li>Serve locally: <code>mkdocs serve</code> (opens on http://127.0.0.1:8000 by default)</li>
+<li>Publish to GitHub Pages (requires push rights): <code>mkdocs gh-deploy --force</code></li>
+<li>Or set up a GitHub Actions workflow (see <code>.github/workflows/docs.yml</code>) that builds the site and deploys to GitHub Pages. Configure Pages to use “GitHub Actions” as the source.</li>
+</ul>
 <h2 id="legacy-scripts-cli">Legacy scripts (CLI)<a class="headerlink" href="#legacy-scripts-cli" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
