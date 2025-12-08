@@ -39,6 +39,14 @@ client.read_user_roles("alice@example.org")
 # custom settings example: see examples/custom_config.py
 ```
 
+## Build & publish the docs (MkDocs Material)
+
+- Build locally: `pip install mkdocs mkdocs-material mkdocstrings[python] && mkdocs build`
+- Serve locally: `mkdocs serve` (opens on http://127.0.0.1:8000 by default)
+- Publish to GitHub Pages (requires push rights): `mkdocs gh-deploy --force`
+  - Or set up a GitHub Actions workflow (see `.github/workflows/docs.yml`) that builds the site and deploys to GitHub Pages. Configure Pages to use “GitHub Actions” as the source.
+
+
 ## Legacy scripts (CLI)
 
 | Script | Function |

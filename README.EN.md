@@ -70,6 +70,13 @@ Notes:
 - `examples/example_roles_flow.py`: checks/creates + moderates Alice, reads her roles, adds `FOO` and `BAZ`, then removes `BAZ`.
 - `examples/custom_config.py`: shows how to provide custom `LdapSettings` and reuse the API.
 
+## Build & publish the docs (MkDocs Material)
+
+- Build locally: `pip install mkdocs mkdocs-material mkdocstrings[python] && mkdocs build`
+- Serve locally: `mkdocs serve` (http://127.0.0.1:8000)
+- Publish to GitHub Pages (requires push rights): `mkdocs gh-deploy --force`
+  - Or set up the provided GitHub Actions workflow `.github/workflows/docs.yml` to build and deploy. Set Pages source to “GitHub Actions”.
+
 ## Install the library in a virtualenv
 
 ```bash
