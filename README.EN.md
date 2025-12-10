@@ -24,6 +24,24 @@ All settings are in `config.py`:
 - `LDAP_USERS_DN`, `LDAP_ORG_DN`, `LDAP_ROLE_DN`: relative DNs for users, orgs, and roles
 - `LDAP_MAIL_ATTRIBUTE`: attribute used to look up a user by email
 
+Defaults (applied when env vars are not set):
+
+| Variable | Default |
+|----------|---------|
+| `LDAP_SERVER` | `ldap://localhost` |
+| `LDAP_PORT` | `389` |
+| `LDAP_USE_SSL` | `False` |
+| `LDAP_USER_DN` | `cn=admin,dc=georchestra,dc=org` |
+| `LDAP_PASSWORD` | `secret` |
+| `LDAP_USERS_DN` | `ou=users` |
+| `LDAP_PENDING_USERS_DN` | `ou=pendingusers` |
+| `LDAP_ORG_DN` | `ou=orgs` |
+| `LDAP_ROLE_DN` | `ou=roles` |
+| `LDAP_SEARCH_BASE` | `dc=georchestra,dc=org` |
+| `LDAP_MAIL_ATTRIBUTE` | `mail` |
+| `LDAP_DEFAULT_ROLE_CN` | `USER` |
+| `LDAP_DEFAULT_ORG_CN` | `C2C` |
+
 ## Main Features
 
 - **User creation** with the correct geOrchestra objectClasses  
