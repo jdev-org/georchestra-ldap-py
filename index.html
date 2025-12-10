@@ -447,6 +447,69 @@ LDAP_USERS_DN, LDAP_PENDING_USERS_DN, LDAP_ORG_DN, LDAP_ROLE_DN,
 LDAP_SEARCH_BASE, LDAP_MAIL_ATTRIBUTE,
 LDAP_DEFAULT_ROLE_CN, LDAP_DEFAULT_ORG_CN
 </code></pre></div>
+<p>Defaults applied when no environment variable is set:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LDAP_SERVER</code></td>
+<td><code>ldap://localhost</code></td>
+</tr>
+<tr>
+<td><code>LDAP_PORT</code></td>
+<td><code>389</code></td>
+</tr>
+<tr>
+<td><code>LDAP_USE_SSL</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>LDAP_USER_DN</code></td>
+<td><code>cn=admin,dc=georchestra,dc=org</code></td>
+</tr>
+<tr>
+<td><code>LDAP_PASSWORD</code></td>
+<td><code>secret</code></td>
+</tr>
+<tr>
+<td><code>LDAP_USERS_DN</code></td>
+<td><code>ou=users</code></td>
+</tr>
+<tr>
+<td><code>LDAP_PENDING_USERS_DN</code></td>
+<td><code>ou=pendingusers</code></td>
+</tr>
+<tr>
+<td><code>LDAP_ORG_DN</code></td>
+<td><code>ou=orgs</code></td>
+</tr>
+<tr>
+<td><code>LDAP_ROLE_DN</code></td>
+<td><code>ou=roles</code></td>
+</tr>
+<tr>
+<td><code>LDAP_SEARCH_BASE</code></td>
+<td><code>dc=georchestra,dc=org</code></td>
+</tr>
+<tr>
+<td><code>LDAP_MAIL_ATTRIBUTE</code></td>
+<td><code>mail</code></td>
+</tr>
+<tr>
+<td><code>LDAP_DEFAULT_ROLE_CN</code></td>
+<td><code>USER</code></td>
+</tr>
+<tr>
+<td><code>LDAP_DEFAULT_ORG_CN</code></td>
+<td><code>C2C</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="example-usage">Example usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">georchestra_ldap</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeorchestraLdapClient</span><span class="p">,</span> <span class="n">LdapSettings</span>
 
