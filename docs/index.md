@@ -48,6 +48,20 @@ Defaults applied when no environment variable is set:
 | `LDAP_DEFAULT_ROLE_CN` | `USER` |
 | `LDAP_DEFAULT_ORG_CN` | `C2C` |
 
+Programmatic override example (host, port, password):
+
+```python
+from georchestra_ldap import GeorchestraLdapClient, LdapSettings
+import config  # legacy config with your defaults
+
+ldap_settings = LdapSettings.from_env()
+ldap_settings.ldap_server = "ldap://my-ldap"  # host
+ldap_settings.ldap_port = 389                 # port
+ldap_settings.password = config.LDAP_PASSWORD # bind password
+
+ldap_client = GeorchestraLdapClient(ldap_settings)
+```
+
 ## Example usage
 
 ```python
