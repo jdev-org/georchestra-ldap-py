@@ -153,8 +153,6 @@ Chaque méthode log le nom de l’action en INFO et produit un traceback complet
 
 # Tableau récapitulatif des commandes LDAP
 
-# Tableau récapitulatif des commandes LDAP
-
 Exécuter les commandes depuis la racine du dépôt (`python ldap_actions/<script>.py ...`).
 
 | Action | Commande |

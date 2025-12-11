@@ -153,8 +153,6 @@ Each client method logs the action name at INFO and will log a full traceback on
 
 # LDAP Command Summary Table
 
-# LDAP Command Summary Table
-
 Run commands from the repository root (`python ldap_actions/<script>.py ...`).
 
 | Action | Command |
