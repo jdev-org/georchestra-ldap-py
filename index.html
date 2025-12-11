@@ -538,6 +538,17 @@ LDAP_DEFAULT_ROLE_CN, LDAP_DEFAULT_ORG_CN
 </tr>
 </tbody>
 </table>
+<p>Programmatic override example (host, port, password):</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">georchestra_ldap</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeorchestraLdapClient</span><span class="p">,</span> <span class="n">LdapSettings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">config</span>  <span class="c1"># legacy config with your defaults</span>
+
+<span class="n">ldap_settings</span> <span class="o">=</span> <span class="n">LdapSettings</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
+<span class="n">ldap_settings</span><span class="o">.</span><span class="n">ldap_server</span> <span class="o">=</span> <span class="s2">&quot;ldap://my-ldap&quot;</span>  <span class="c1"># host</span>
+<span class="n">ldap_settings</span><span class="o">.</span><span class="n">ldap_port</span> <span class="o">=</span> <span class="mi">389</span>                 <span class="c1"># port</span>
+<span class="n">ldap_settings</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">LDAP_PASSWORD</span> <span class="c1"># bind password</span>
+
+<span class="n">ldap_client</span> <span class="o">=</span> <span class="n">GeorchestraLdapClient</span><span class="p">(</span><span class="n">ldap_settings</span><span class="p">)</span>
+</code></pre></div>
 <h2 id="example-usage">Example usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">georchestra_ldap</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeorchestraLdapClient</span><span class="p">,</span> <span class="n">LdapSettings</span>
 
