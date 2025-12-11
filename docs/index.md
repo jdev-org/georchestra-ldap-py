@@ -2,6 +2,12 @@
 
 Thin Python wrapper around the legacy `ldap_actions` scripts used with geOrchestra LDAP directories. Installable via pip, configurable via environment variables, and consumable as a small API.
 
+## Prerequisites
+
+- Python 3 (tested with 3.10+)
+- Network access to your LDAP server and a bind account with write permissions
+- Proper LDAP settings provided via env vars (or `config.py` legacy file)
+
 ## Quick install
 
 ```bash
@@ -55,6 +61,18 @@ client.add_user_role("alice@example.org", "FOO")
 client.add_user_org("alice@example.org", "C2C")  # moves her out of other orgs first
 client.read_user_roles("alice@example.org")
 # custom settings example: see examples/custom_config.py
+```
+
+## Logging
+
+The library relies on the standard Python `logging` module and does not configure handlers for you.
+
+Enable logging in your app before using the client, e.g.:
+
+```python
+import logging
+
+logging.basicConfig(level=logging.INFO)  # or DEBUG, WARNING, etc.
 ```
 
 ## Build & publish the docs (MkDocs Material)

@@ -36,22 +36,22 @@ def main() -> None:
     client = GeorchestraLdapClient(settings)
     email = "alice@fake.fr"
 
-    logger.info(
+    logger.debug(
         "Connecting to %s:%s with custom password", settings.server, settings.port
     )
 
-    logger.info("1) Ensure role FOO exists")
+    logger.debug("1) Ensure role FOO exists")
     client.create_role("FOO", "Example role for Alice")
 
-    logger.info("2) Lookup user %s", email)
+    logger.debug("2) Lookup user %s", email)
     dn = user_exists(client, email)
     if dn:
-        logger.info("   User already exists: %s", dn)
+        logger.debug("   User already exists: %s", dn)
     else:
-        logger.info("3) Create user in pendingusers")
+        logger.debug("3) Create user in pendingusers")
         client.create_user("alice", email, "Alice", "Example", "ChangeMe123!")
 
-    logger.info("4) Moderate user (pending -> users)")
+    logger.debug("4) Moderate user (pending -> users)")
     client.moderate_user(email)
 
 

@@ -80,7 +80,7 @@ class GeorchestraLdapClient:
             **kwargs: Keyword arguments forwarded to the underlying function.
         """
         self._apply_settings()
-        logger.info("Running action: %s", action_name)
+        logger.debug("Running action: %s", action_name)
         try:
             return func(*args, **kwargs)
         except Exception:

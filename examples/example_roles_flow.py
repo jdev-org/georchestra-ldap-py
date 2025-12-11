@@ -32,26 +32,26 @@ def main() -> None:
     email = "alice@fake.fr"
     uid = "alice"
 
-    logger.info("1) Lookup user %s", email)
+    logger.debug("1) Lookup user %s", email)
     dn = user_exists(client, email)
     if dn:
-        logger.info("   User already exists: %s", dn)
+        logger.debug("   User already exists: %s", dn)
     else:
-        logger.info("2) Create user in pendingusers")
+        logger.debug("2) Create user in pendingusers")
         client.create_user(uid, email, "Alice", "Example", "ChangeMe123!")
 
-    logger.info("3) Moderate user (pending -> users if needed)")
+    logger.debug("3) Moderate user (pending -> users if needed)")
     client.moderate_user(email)
 
-    logger.info("4) Current roles for user")
+    logger.debug("4) Current roles for user")
     client.read_user_roles(email)
 
-    logger.info("5) Ensure roles FOO and BAZ exist and assign them")
+    logger.debug("5) Ensure roles FOO and BAZ exist and assign them")
     for role in ("FOO", "BAZ"):
         client.create_role(role, f"Example role {role}")  # idempotent if already exists
         client.add_user_role(email, role)
 
-    logger.info("6) Remove role BAZ from user")
+    logger.debug("6) Remove role BAZ from user")
     client.remove_user_role(email, "BAZ")
 
 
