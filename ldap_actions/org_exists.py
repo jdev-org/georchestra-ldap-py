@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys
 import os
 
@@ -8,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def org_exists(org_cn: str) -> bool:
     """
@@ -24,16 +26,16 @@ def org_exists(org_cn: str) -> bool:
     )
 
     if conn.entries:
-        print(f"Organization exists: {org_cn}")
+        logger.debug("Organization exists: %s", org_cn)
         return True
 
-    print(f"Organization not found: {org_cn}")
+    logger.debug("Organization not found: %s", org_cn)
     return False
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python org_exists.py <ORG_CN>")
+        logger.debug("Usage: python org_exists.py <ORG_CN>")
         sys.exit(1)
 
     org_exists(sys.argv[1])

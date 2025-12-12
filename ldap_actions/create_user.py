@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys, os, uuid, hashlib, base64
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -7,6 +8,7 @@ from ldap3 import MODIFY_ADD
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def hash_password(password: str) -> str:
     """Retourne un mot de passe LDAP au format SSHA."""
@@ -30,7 +32,7 @@ def create_user(uid: str, email: str, given_name: str, sn: str, password: str):
         attributes=["uid"]
     )
     if conn.entries:
-        print(f"User already exists: {uid}")
+        logger.debug("User already exists: %s", uid)
         return
 
     # Générer un UUID geOrchestra
@@ -59,39 +61,39 @@ def create_user(uid: str, email: str, given_name: str, sn: str, password: str):
         "userPassword": hashed_pwd
     }
 
-    print(f"Creating user: {user_dn}")
+    logger.debug("Creating user: %s", user_dn)
 
     try:
         conn.add(user_dn, attributes=attributes)
-        print("User successfully created in ou=pendingusers.")
+        logger.debug("User successfully created in ou=pendingusers.")
     except Exception as e:
-        print("Error while creating user:", e)
+        logger.debug("Error while creating user: %s", e)
         return
 
     # === Ajouter USER role ===
     user_role_dn = f"cn=USER,{config.LDAP_ROLE_DN},{config.LDAP_SEARCH_BASE}"
-    print(f"Adding user to USER role → {user_role_dn}")
+    logger.debug("Adding user to USER role \u2192 %s", user_role_dn)
     try:
         conn.modify(user_role_dn, {"member": [(MODIFY_ADD, [user_dn])]})
-        print("Added USER role.")
+        logger.debug("Added USER role.")
     except Exception as e:
-        print("Error adding USER role:", e)
+        logger.debug("Error adding USER role: %s", e)
 
     # === Ajouter organization C2C ===
     org_dn = f"cn=C2C,{config.LDAP_ORG_DN},{config.LDAP_SEARCH_BASE}"
-    print(f"Adding user to organization C2C → {org_dn}")
+    logger.debug("Adding user to organization C2C \u2192 %s", org_dn)
     try:
         conn.modify(org_dn, {"member": [(MODIFY_ADD, [user_dn])]})
-        print("Added to organization C2C.")
+        logger.debug("Added to organization C2C.")
     except Exception as e:
-        print("Error adding organization C2C:", e)
+        logger.debug("Error adding organization C2C: %s", e)
 
     return user_dn
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 6:
-        print("Usage: python create_user.py <uid> <email> <givenName> <sn> <password>")
+        logger.debug("Usage: python create_user.py <uid> <email> <givenName> <sn> <password>")
         sys.exit(1)
 
     _, uid, email, given, sn, pwd = sys.argv

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+import logging
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def delete_user(email: str):
     conn = get_connection()
@@ -19,34 +21,34 @@ def delete_user(email: str):
     )
 
     if not conn.entries:
-        print(f"User not found: {email}")
+        logger.debug("User not found: %s", email)
         return
 
     user = conn.entries[0]
     user_dn = user.entry_dn
 
-    print(f"Found user: {user_dn}")
+    logger.debug("Found user: %s", user_dn)
 
     # 2) Retirer l'utilisateur de tous ses rôles
     if "memberOf" in user:
-        print("Removing user from roles...")
+        logger.debug("Removing user from roles...")
         for role_dn in user.memberOf.values:
             try:
                 conn.modify(
                     role_dn,
                     {"member": [(conn.MODIFY_DELETE, [user_dn])]}
                 )
-                print(f" - Removed from {role_dn}")
+                logger.debug(" - Removed from %s", role_dn)
             except Exception as e:
-                print(f"Error removing from {role_dn}: {e}")
+                logger.debug("Error removing from %s: %s", role_dn, e)
 
     # 3) Supprimer l'utilisateur
-    print(f"Deleting user entry: {user_dn}")
+    logger.debug("Deleting user entry: %s", user_dn)
     try:
         conn.delete(user_dn)
-        print("User successfully deleted.")
+        logger.debug("User successfully deleted.")
     except Exception as e:
-        print("Error deleting user:", e)
+        logger.debug("Error deleting user: %s", e)
         return
 
     return True
@@ -54,7 +56,7 @@ def delete_user(email: str):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python delete_user.py <email>")
+        logger.debug("Usage: python delete_user.py <email>")
         sys.exit(1)
 
     delete_user(sys.argv[1])

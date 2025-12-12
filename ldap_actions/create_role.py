@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+import logging
 import sys, os, uuid
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def create_role(role_cn: str, description: str = "Role created via script", members=None):
     conn = get_connection()
@@ -20,7 +22,7 @@ def create_role(role_cn: str, description: str = "Role created via script", memb
     )
 
     if conn.entries:
-        print(f"Role already exists: {role_cn}")
+        logger.debug("Role already exists: %s", role_cn)
         return role_dn
 
     if members is None:
@@ -43,13 +45,13 @@ def create_role(role_cn: str, description: str = "Role created via script", memb
     if members:
         attributes["member"] = members
 
-    print(f"Creating role: {role_dn}")
+    logger.debug("Creating role: %s", role_dn)
 
     try:
         conn.add(role_dn, attributes=attributes)
-        print("Role successfully created.")
+        logger.debug("Role successfully created.")
     except Exception as e:
-        print("Error while creating role:", e)
+        logger.debug("Error while creating role: %s", e)
         return None
 
     return role_dn
@@ -57,7 +59,7 @@ def create_role(role_cn: str, description: str = "Role created via script", memb
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python create_role.py <ROLE_CN> [description]")
+        logger.debug("Usage: python create_role.py <ROLE_CN> [description]")
         sys.exit(1)
 
     role_cn = sys.argv[1]

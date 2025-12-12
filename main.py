@@ -1,10 +1,13 @@
+import logging
 import sys
 from ldap_actions.ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
+
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python main.py <email>")
+        logger.debug("Usage: python main.py <email>")
         return
 
     mail = sys.argv[1]
@@ -17,10 +20,10 @@ def main():
     )
 
     if not conn.entries:
-        print("User not found.")
+        logger.debug("User not found.")
         return
 
-    print(conn.entries[0])
+    logger.debug(conn.entries[0])
 
 if __name__ == "__main__":
     main()

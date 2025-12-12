@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+import logging
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def moderate_user(email: str):
     conn = get_connection()
@@ -19,17 +21,17 @@ def moderate_user(email: str):
     )
 
     if not conn.entries:
-        print(f"User not found: {email}")
+        logger.debug("User not found: %s", email)
         return
 
     user = conn.entries[0]
     old_dn = user.entry_dn
 
-    print(f"Found user: {old_dn}")
+    logger.debug("Found user: %s", old_dn)
 
     # 2) Vérifier qu'il est bien en pending
     if "ou=pendingusers" not in old_dn:
-        print("User is NOT in ou=pendingusers — nothing to do.")
+        logger.debug("User is NOT in ou=pendingusers — nothing to do.")
         return
 
     uid = user.uid.value
@@ -38,7 +40,7 @@ def moderate_user(email: str):
     new_superior = f"{config.LDAP_USERS_DN},{config.LDAP_SEARCH_BASE}"
     new_dn = f"uid={uid},{new_superior}"
 
-    print(f"Activating user → moving to: {new_dn}")
+    logger.debug("Activating user → moving to: %s", new_dn)
 
     # 4) Déplacer l'utilisateur
     try:
@@ -47,9 +49,9 @@ def moderate_user(email: str):
             relative_dn=f"uid={uid}",
             new_superior=new_superior
         )
-        print("User successfully moved to ou=users.")
+        logger.debug("User successfully moved to ou=users.")
     except Exception as e:
-        print("Error while moving user:", e)
+        logger.debug("Error while moving user: %s", e)
         return
 
     return new_dn
@@ -57,7 +59,7 @@ def moderate_user(email: str):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python moderate_user.py <email>")
+        logger.debug("Usage: python moderate_user.py <email>")
         sys.exit(1)
 
     moderate_user(sys.argv[1])

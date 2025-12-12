@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -7,6 +8,7 @@ from ldap3 import MODIFY_ADD
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def add_role(email: str, role_cn: str):
     conn = get_connection()
@@ -20,11 +22,11 @@ def add_role(email: str, role_cn: str):
     )
 
     if not conn.entries:
-        print(f"User not found: {email}")
+        logger.debug("User not found: %s", email)
         return
 
     user_dn = conn.entries[0].entry_dn
-    print(f"User DN found: {user_dn}")
+    logger.debug("User DN found: %s", user_dn)
 
     # 2) Construire le DN du rôle
     role_dn = f"cn={role_cn},{config.LDAP_ROLE_DN},{config.LDAP_SEARCH_BASE}"
@@ -37,17 +39,17 @@ def add_role(email: str, role_cn: str):
     )
 
     if not conn.entries:
-        print(f"Role not found: {role_cn}")
+        logger.debug("Role not found: %s", role_cn)
         return
 
     role_entry = conn.entries[0]
 
     # 3bis) Vérifier si l'utilisateur est déjà membre
     if "member" in role_entry and user_dn in role_entry.member.values:
-        print(f"User already has role: {role_cn}")
+        logger.debug("User already has role: %s", role_cn)
         return
 
-    print(f"Adding user to role: {role_dn}")
+    logger.debug("Adding user to role: %s", role_dn)
 
     # 4) Ajouter l'utilisateur au rôle
     try:
@@ -55,14 +57,14 @@ def add_role(email: str, role_cn: str):
             role_dn,
             {"member": [(MODIFY_ADD, [user_dn])]}
         )
-        print("Role assignment successful.")
+        logger.debug("Role assignment successful.")
     except Exception as e:
-        print("Error adding user to role:", e)
+        logger.debug("Error adding user to role: %s", e)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python add_user_role.py <email> <role_cn>")
+        logger.debug("Usage: python add_user_role.py <email> <role_cn>")
         sys.exit(1)
 
     add_role(sys.argv[1], sys.argv[2])

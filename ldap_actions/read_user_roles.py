@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
+import logging
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from ldap_connection import get_connection
 import config
+
+logger = logging.getLogger(__name__)
 
 def read_user_roles(email):
     conn = get_connection()
@@ -17,7 +20,7 @@ def read_user_roles(email):
     )
 
     if not conn.entries:
-        print("User not found.")
+        logger.debug("User not found.")
         return
 
     user = conn.entries[0]
@@ -32,16 +35,16 @@ def read_user_roles(email):
                 role_cn = group_dn.split(",")[0].split("=")[1]
                 roles.append(role_cn)
 
-    print("=== User Roles ===")
+    logger.debug("=== User Roles ===")
     if roles:
         for r in roles:
-            print(f"- {r}")
+            logger.debug("- %s", r)
     else:
-        print("No roles")
+        logger.debug("No roles")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python read_user_roles.py <email>")
+        logger.debug("Usage: python read_user_roles.py <email>")
         exit(1)
 
     read_user_roles(sys.argv[1])

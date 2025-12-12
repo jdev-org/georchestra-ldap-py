@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys
 import os
 
@@ -8,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def get_role_infos(role_cn: str):
     """
@@ -22,29 +24,29 @@ def get_role_infos(role_cn: str):
     )
 
     if not conn.entries:
-        print(f"Role not found: {role_cn}")
+        logger.debug("Role not found: %s", role_cn)
         return None
 
     role = conn.entries[0]
 
-    print("=== Role Information ===")
-    print(f"DN: {role.entry_dn}")
-    print(f"cn: {role.cn.value if 'cn' in role else None}")
-    print(f"description: {role.description.value if 'description' in role else None}")
+    logger.debug("=== Role Information ===")
+    logger.debug("DN: %s", role.entry_dn)
+    logger.debug("cn: %s", role.cn.value if "cn" in role else None)
+    logger.debug("description: %s", role.description.value if "description" in role else None)
 
-    print("\nMembers:")
+    logger.debug("\nMembers:")
     if "member" in role:
         for m in role.member.values:
-            print(f" - {m}")
+            logger.debug(" - %s", m)
     else:
-        print("No members")
+        logger.debug("No members")
 
     return role
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python get_role_infos.py <ROLE_CN>")
+        logger.debug("Usage: python get_role_infos.py <ROLE_CN>")
         sys.exit(1)
 
     get_role_infos(sys.argv[1])

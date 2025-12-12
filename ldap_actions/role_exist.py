@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys
 import os
 
@@ -8,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def role_exists(role_cn: str) -> bool:
     """
@@ -23,16 +25,16 @@ def role_exists(role_cn: str) -> bool:
         attributes=["cn"],
     )
     if conn.entries:
-        print(f"Role exists: {role_cn}")
+        logger.debug("Role exists: %s", role_cn)
         return True
 
-    print(f"Role not found: {role_cn}")
+    logger.debug("Role not found: %s", role_cn)
     return False
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python role_exist.py <ROLE_CN>")
+        logger.debug("Usage: python role_exist.py <ROLE_CN>")
         sys.exit(1)
 
     role_exists(sys.argv[1])

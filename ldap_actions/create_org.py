@@ -1,8 +1,11 @@
+import logging
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from ldap_connection import get_connection
 import config
+
+logger = logging.getLogger(__name__)
 
 def create_org(org_cn, org_name=None):
     conn = get_connection()
@@ -11,7 +14,7 @@ def create_org(org_cn, org_name=None):
     conn.search(org_dn, "(objectClass=*)")
 
     if conn.entries:
-        print("Organization exists already.")
+        logger.debug("Organization exists already.")
         return
 
     attrs = {
@@ -20,11 +23,11 @@ def create_org(org_cn, org_name=None):
     }
 
     conn.add(org_dn, ["groupOfMembers", "top", "georchestraOrg"], attrs)
-    print(f"Organization created: {org_cn}")
+    logger.debug("Organization created: %s", org_cn)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python create_org.py <org_cn> [name]")
+        logger.debug("Usage: python create_org.py <org_cn> [name]")
         exit(1)
 
     create_org(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)

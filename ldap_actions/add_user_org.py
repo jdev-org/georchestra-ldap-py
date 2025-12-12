@@ -2,6 +2,7 @@
 
 import sys
 import os
+import logging
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -10,6 +11,7 @@ from ldap3 import MODIFY_ADD, MODIFY_DELETE
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def add_user_to_org(email: str, org_cn: str):
     """
@@ -28,7 +30,7 @@ def add_user_to_org(email: str, org_cn: str):
         attributes=[],
     )
     if not conn.entries:
-        print(f"User not found: {email}")
+        logger.debug("User not found: %s", email)
         return
 
     user_dn = conn.entries[0].entry_dn
@@ -41,14 +43,14 @@ def add_user_to_org(email: str, org_cn: str):
         attributes=["member"],
     )
     if not conn.entries:
-        print(f"Organization not found: {org_cn}")
+        logger.debug("Organization not found: %s", org_cn)
         return
 
     org_entry = conn.entries[0]
 
     # If already in target org, do nothing.
     if "member" in org_entry and user_dn in org_entry.member.values:
-        print(f"User already in organization: {org_cn}")
+        logger.debug("User already in organization: %s", org_cn)
         return
 
     # Remove user from any other orgs first
@@ -61,21 +63,21 @@ def add_user_to_org(email: str, org_cn: str):
         if existing_org.entry_dn != org_dn and "member" in existing_org:
             try:
                 conn.modify(existing_org.entry_dn, {"member": [(MODIFY_DELETE, [user_dn])]})
-                print(f"Removed {user_dn} from {existing_org.entry_dn}")
+                logger.debug("Removed %s from %s", user_dn, existing_org.entry_dn)
             except Exception as e:
-                print(f"Error removing user from {existing_org.entry_dn}: {e}")
+                logger.debug("Error removing user from %s: %s", existing_org.entry_dn, e)
 
-    print(f"Adding {user_dn} to {org_dn}")
+    logger.debug("Adding %s to %s", user_dn, org_dn)
     try:
         conn.modify(org_dn, {"member": [(MODIFY_ADD, [user_dn])]})
-        print("Organization update successful.")
+        logger.debug("Organization update successful.")
     except Exception as e:
-        print("Error adding user to organization:", e)
+        logger.debug("Error adding user to organization: %s", e)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python add_user_org.py <email> <ORG_CN>")
+        logger.debug("Usage: python add_user_org.py <email> <ORG_CN>")
         sys.exit(1)
 
     add_user_to_org(sys.argv[1], sys.argv[2])

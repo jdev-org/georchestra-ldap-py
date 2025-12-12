@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys
 import os
 
@@ -8,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from ldap_connection import get_connection
 import config
 
+logger = logging.getLogger(__name__)
 
 def get_org_users(org_cn: str):
     """
@@ -26,25 +28,25 @@ def get_org_users(org_cn: str):
     )
 
     if not conn.entries:
-        print(f"Organization not found: {org_cn}")
+        logger.debug("Organization not found: %s", org_cn)
         return []
 
     org_entry = conn.entries[0]
     members = list(org_entry.member.values) if "member" in org_entry else []
 
-    print("=== Organization Members ===")
+    logger.debug("=== Organization Members ===")
     if members:
         for m in members:
-            print(f"- {m}")
+            logger.debug("- %s", m)
     else:
-        print("No members")
+        logger.debug("No members")
 
     return members
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python get_org_users.py <ORG_CN>")
+        logger.debug("Usage: python get_org_users.py <ORG_CN>")
         sys.exit(1)
 
     get_org_users(sys.argv[1])
